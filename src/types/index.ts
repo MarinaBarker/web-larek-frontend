@@ -1,47 +1,53 @@
 export type TProductCategory = 'софт-скил' | 'другое' | 'дополнительное' | 'кнопка' | 'хард-скил' ;
-export type TPayment = 'онлайн' | 'при получении' ;
+export type TPayment = 'онлайн' | 'при получении' | '';
 
-//данные карточек товара
 export interface IProduct {
     id: string;
     category: TProductCategory;
     title: string;
     description: string;
-    price: number | null;
-    image?: string;
-}
-
-//данные заказа
-export interface IProductOrder {
-    item: IProduct;
-    total: number;
-}
-
-//данные формы оплаты и контактов 
-export interface IOrderForm {
-    payment: TPayment;
-    address: string;
-    email: string;
-    phone: string;
-}
-
-//данные корзины
-export interface IBasket {
-    item: IProduct;
     price: number;
-    total: number;
+    image?: string;
+    selected: boolean
+    index?: number;
 }
 
-//данные успешного заказа
+export interface IPage {
+    catalog: HTMLElement[];
+    counter: number;
+    locked: boolean;
+}
+
+export interface IOrderContact {
+    email?: string;
+    phone?: string;
+}
+
+export interface IOrderDelivery {
+    payment?: TPayment;
+    address?: string;
+}
+
+export interface IOrder extends IOrderContact, IOrderDelivery {
+    items: string[],
+    total: number | string;
+}
+
 export interface IOrderSuccess {
     id: string;
     total: number;
 }
 
-//все данные компонентов приложения
 export interface IAppState {
     catalog: IProduct[];
-    basket: string [];
+    basket: IProduct[] | [];
     preview: string | null;
-    order: IOrderForm | null;
+    order: IOrder | null;
+    loading: boolean;
 }
+
+export interface ICardActions {
+	onClick: (event: MouseEvent) => void;
+}
+
+export type FormError = Partial<Record<keyof IOrder, string>>
