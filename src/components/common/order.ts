@@ -3,7 +3,7 @@ import { IOrderContact, IOrderDelivery } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Form } from "./form";
 
-export class Order extends Form<IOrderDelivery> {
+export class OrderForm extends Form<IOrderDelivery> {
     protected _paymentContainer: HTMLDivElement;
     protected _paymentButton: HTMLButtonElement[];
     protected _addressInput: HTMLInputElement;

@@ -11,7 +11,7 @@ export class Card<T> extends Component <IProduct> {
     protected _price?: HTMLElement;
 	protected _index?: HTMLElement;
 	protected _categoryProduct = settings;
-	_button?: HTMLButtonElement;
+	protected _button?: HTMLButtonElement;
 
     constructor(container: HTMLElement, actions?: ICardActions) {
 		super(container);
@@ -66,6 +66,19 @@ export class Card<T> extends Component <IProduct> {
 			this.setText(this._price, `Бесценно`);
 		} else {
 			this.setText(this._price, `${value} синапсов`);
+		}
+		if (this._button && !value) {
+			this._button.disabled = true;
+		}
+	}
+
+	set buttonTitle(value: boolean) {
+		if (value === true) {
+			this.setText(this._button, 'Товар в корзине');
+			this._button.disabled = true;
+		}
+		else  {
+			this.setText(this._button, 'Товар не продается');
 		}
 	}
 

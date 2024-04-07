@@ -9,7 +9,7 @@ import { AppState, CatalogChangeEvent, Product } from './components/common/appSt
 import { Basket, BasketItem } from './components/common/basket';
 import { Modal } from './components/common/modal';
 import { IProduct, IOrderDelivery, IOrderContact} from './types';
-import { Contacts, Order } from './components/common/order';
+import { Contacts, OrderForm } from './components/common/order';
 import { Success } from './components/common/success';
 
 
@@ -30,7 +30,7 @@ const appData = new AppState({}, events);
 const page = new Page(document.body, events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const basket = new Basket(cloneTemplate(basketTemplate), events);
-const order = new Order(cloneTemplate(orderTemplate), events);
+const order = new OrderForm(cloneTemplate(orderTemplate), events);
 const contacts = new Contacts(cloneTemplate(contactsTemplate), events);
 
 //отображение товаров
@@ -73,12 +73,10 @@ events.on('card:select', (item: Product) => {
 	});
 
 	if (item.price === null) {
-		card.setDisabled(card._button, true);
-		card._button.textContent = 'Не продается';
+		card.buttonTitle = false;
 	}
 	if (appData.basket.includes(item)) {
-		card.setDisabled(card._button, true);
-		card._button.textContent = 'Товар в корзине';
+		card.buttonTitle = true;
 	}
 });
 
